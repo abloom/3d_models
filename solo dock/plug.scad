@@ -40,20 +40,53 @@ module power_cable() {
   // twist at beginning
   union() {
     serial_hull() {
-      power_cable_rotate_slice(0, 6, 2.5);
-      power_cable_rotate_slice(1, 6, 2.5);
-      power_cable_rotate_slice(2, 6, 2.5);
-      power_cable_rotate_slice(3, 6, 2.5);
-      power_cable_rotate_slice(4, 6, 2.5);
-      power_cable_rotate_slice(5, 6, 2.5);
-      power_cable_rotate_slice(6, 6, 2.5);
+      power_cable_rotate_slice(0, 6, 2.25);
+      power_cable_rotate_slice(1, 6, 2.25);
+      power_cable_rotate_slice(2, 6, 2.25);
+      power_cable_rotate_slice(3, 6, 2.25);
+      power_cable_rotate_slice(4, 6, 2.25);
+      power_cable_rotate_slice(5, 6, 2.25);
+      power_cable_rotate_slice(6, 6, 2.25);
+
     }
   }
 }
 
+module negative_jack_mount() {
+  center = 6;
+
+  union() {
+    // recessed head
+    translate([6, 3, 6])
+      rotate([90, 0, 0])
+        cylinder(h=4, d=10);
+
+    // stop
+    translate([6, 6, 6])
+      rotate([90, 0, 0])
+        cylinder(h=4, d=8.3);
+
+    // open space
+    translate([0.5, 5, -2])
+      cube([11, 20, 13]);
+  }
+}
+
 module negative_power_cable() {
-  /*scale([1, 1, 11])*/
-    power_cable();
+  height = 9;
+
+  union() {
+    cube([14.5, 4, height]);
+
+    translate([13.5, -9, 0])
+      cube([2, 13, height]);
+
+    translate([-15, -10, 0])
+      cube([30.5, 2, height]);
+
+    translate([-16, -14, 0])
+      cube([2, 6, height]);
+  }
 }
 
 module power_assembly() {
@@ -71,7 +104,10 @@ module negative_power_assembly() {
     translate([-6.75, 6.5, -6])
       negative_power_plug();
 
-    translate([15, 3.5, 4])
+    translate([15, 3.5, -2])
       negative_power_cable();
+
+    translate([-6, -34.5, 0])
+      negative_jack_mount();
   }
 }

@@ -30,22 +30,6 @@ module resized_bottom(extra) {
     solo_bottom();
 }
 
-module jack() {
-  difference() {
-    cube([12, 12, 12]);
-
-    // recessed head
-    #translate([6, 3, 6])
-      rotate([90, 0, 0])
-        cylinder(h=4, d=10);
-
-    // stop
-    #translate([6, 13, 6])
-      rotate([90, 0, 0])
-        cylinder(h=12, d=8.3);
-  }
-}
-
 module cone() {
   union() {
     // angled bottom
@@ -77,7 +61,7 @@ module cone() {
 
     // power jack
     translate([-6, -34.5, 0])
-      jack();
+      cube([12, 12, 12]);
   }
 }
 
@@ -90,7 +74,6 @@ module base() {
       linear_extrude(14, true)
         solo_bottom();
 
-    // extra tall plug/wire negative
     negative_power_assembly();
   }
 }
