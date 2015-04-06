@@ -1,11 +1,12 @@
 use <base.scad>;
 use <plug.scad>;
 
-color("grey")
+/*color("grey")*/
   base();
 
 /*color("red")*/
-  /*power_assembly();*/
+  /*translate([-6.75, 6.5, 3])*/
+    /*power_assembly();*/
 
 /*color("blue")*/
   /*translate([60, 0, 0])*/
