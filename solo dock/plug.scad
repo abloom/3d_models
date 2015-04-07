@@ -92,17 +92,17 @@ module negative_jack_mount() {
     // hex cutout for nut
     translate([6, 14, 6])
       rotate([90, 0, 0])
-        cylinder(h=8, d=10.5, $fn=6);
+        cylinder(h=8, d=11.5, $fn=6);
 
     // open space
-    translate([0.75, 12, -2])
-      cube([10.5, 13, 12.55]);
-    translate([0.75, 10, -0])
-      cube([10.5, 3, 6]);
+    translate([0.25, 12, -2])
+      cube([11.5, 13, 12.98]);
+    translate([0.25, 10, 0])
+      cube([11.5, 3, 6]);
 
     // cutout to slip wires in
-    translate([5, 3.5, -1])
-      cube([2, 9, 4]);
+    translate([5, 3.5, -2])
+      cube([2, 9, 5]);
   }
 }
 
@@ -129,27 +129,27 @@ module negative_power_cable() {
 
   union() {
     translate([0, 1, 0])
-      cube([12.5, 4, height]);
+      cube([11.5, 4, height]);
 
-    translate([10.1, -0.4, 4.5])
+    translate([9.1, -0.4, 4.5])
       rotate([0, 0, 180])
         negative_power_inside_round_corner(height);
 
-    translate([11.5, -8.5, 0])
+    translate([10.5, -8.5, 0])
       cube([2.5, 12, height]);
 
-    translate([12.5, 3.5, 4.5])
+    translate([11.5, 3.5, 4.5])
       rotate([0, 0, 180])
         negative_power_outside_round_corner(height);
 
-    translate([10.1, -6.1, 4.5])
+    translate([9.1, -6.1, 4.5])
       rotate([0, 0, 90])
         negative_power_inside_round_corner(height);
 
     translate([-14.5, -10, 0])
-      cube([27, 2.5, height]);
+      cube([26, 2.5, height]);
 
-    translate([12.5, -8.5, 4.5])
+    translate([11.5, -8.5, 4.5])
       rotate([0, 0, 180])
         negative_power_outside_round_corner(height);
 
@@ -173,10 +173,10 @@ module negative_power_plug() {
 
 module negative_power_assembly() {
   union() {
-    translate([-6.75, 6.5, -6])
+    translate([-6.75, 6.5, -5])
       negative_power_plug();
 
-    translate([15, 3.5, -2])
+    translate([15, 3.5, -1])
       negative_power_cable();
 
     translate([-6, -34.5, 0])

@@ -51,11 +51,11 @@ module cone_ring(resize_base, height) {
       resized_bottom(resize_base);
 }
 
-module rounded_foot() {
+module rounded_foot(foot_width) {
   difference() {
     rounded_rect([12, 12, 2], 4);
 
-    translate([1.5, 1.5, -1])
+    translate([foot_width, foot_width, -1])
       rounded_rect([12, 12, 4], 4);
 
     translate([0, -9, -1])
@@ -68,27 +68,29 @@ module rounded_foot() {
 }
 
 module cone(resize_base) {
+  foot_width = 2;
+
   union() {
     // foot
     linear_extrude(2, true) {
       difference() {
         resized_bottom(resize_base);
-        resized_bottom(resize_base-3);
+        resized_bottom(resize_base-(foot_width*2));
       }
     }
 
     // curved extrusion on the right foot near the power jack
     translate([14, -26.5, 0])
-      rounded_foot();
+      rounded_foot(foot_width);
 
     // curved extrusion on the left foot near the power jack
     translate([-14, -26.5, 0])
       rotate([0, 0, 90])
-        rounded_foot();
+        rounded_foot(foot_width);
 
     // square feet under the power jack
     translate([0, -27.5, 0])
-      rounded_rect([13, 4, 2], 2);
+      rounded_rect([10+(2*foot_width), 4, 2], 2);
 
     // curvey profile
     translate([0, 0, 2])
