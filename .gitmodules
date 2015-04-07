@@ -1,0 +1,15 @@
+[submodule "MCAD"]
+	path = MCAD
+	url = git@github.com:openscad/MCAD.git
+[submodule "lib"]
+	path = lib
+	url = git@github.com:openscad/MCAD.git
+[submodule "solo dock/lib"]
+	path = solo dock/lib
+	url = git@github.com:openscad/MCAD.git
+[submodule "solo dock/solo_dock/MCAD"]
+	path = solo dock/solo_dock/MCAD
+	url = git@github.com:openscad/MCAD.git
+[submodule "solo dock/MCAD"]
+	path = solo dock/MCAD
+	url = git@github.com:openscad/MCAD.git
