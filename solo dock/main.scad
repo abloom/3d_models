@@ -1,8 +1,7 @@
 use <base.scad>;
 use <plug.scad>;
 
-/*color("grey")*/
-  base();
+base();
 
 /*color("red")*/
   /*translate([-6.75, 6.5, 3])*/

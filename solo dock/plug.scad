@@ -66,8 +66,6 @@ module power_cable() {
     translate([9, -7, -2])
       rotate([0, 0, -90])
         power_cable_90_bend();
-
-    // long straight
   }
 }
 
@@ -85,9 +83,9 @@ module negative_jack_mount() {
 
   union() {
     // stop
-    translate([6, 12.5, 6])
+    translate([6, 12.5, 5.7])
       rotate([90, 0, 0])
-        cylinder(h=9, d=8);
+        cylinder(h=9, d=8.1);
 
     // hex cutout for nut
     translate([6, 14, 6])
@@ -95,10 +93,12 @@ module negative_jack_mount() {
         cylinder(h=8, d=11.5, $fn=6);
 
     // open space
+    translate([0.25, 6, 0])
+      cube([11.5, 7, 6]);
     translate([0.25, 12, -2])
-      cube([11.5, 13, 12.98]);
-    translate([0.25, 10, 0])
-      cube([11.5, 3, 6]);
+      cube([11.5, 10, 12.98]);
+    translate([6, 22, -2])
+      rounded_rect([9.5, 4, 12.98], 2);
 
     // cutout to slip wires in
     translate([5, 3.5, -2])
@@ -173,11 +173,29 @@ module negative_power_plug() {
 
 module negative_power_assembly() {
   union() {
-    translate([-6.75, 6.5, -5])
-      negative_power_plug();
+    translate([-6.75, 8, -4])
+      rotate([0, 0, -60])
+        negative_power_plug();
 
-    translate([15, 3.5, -1])
-      negative_power_cable();
+    translate([2.1, -11.3, 0])
+      rotate([0, 0, -30])
+        cube([4, 4, 10]);
+
+    difference() {
+      translate([-3, -11, 0])
+        cube([3, 3, 10]);
+
+      translate([-2.75, -8.5, 0])
+        cylinder(r=1.1, h=10, $fn=32);
+    }
+
+    /*difference() {*/
+      /*translate([4.4, -12, 0])*/
+        /*cube([3, 2.5, 10]);*/
+
+      /*translate([8.6, -12.65, 0])*/
+        /*cylinder(r=3, h=10, $fn=32);*/
+    /*}*/
 
     translate([-6, -34.5, 0])
       negative_jack_mount();
