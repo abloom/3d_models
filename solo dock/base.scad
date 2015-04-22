@@ -74,54 +74,28 @@ module rounded_cone_ring(resize_base, height) {
       rounded_resized_bottom(resize_base);
 }
 
-module rounded_foot(foot_width) {
-  difference() {
-    rounded_rect([12, 12, 2], 4);
-
-    translate([foot_width-0.25, foot_width-0.25, -1])
-      rounded_rect([12, 12, 4], 4);
-
-    translate([-3.5, -9, -1])
-      cube([12, 4, 4]);
-
-    translate([-9, -3.5, -1])
-      cube([4, 12, 4]);
-  }
-}
-
 module cone(resize_base) {
   curve_factor = 10;
   foot_width = 6;
 
   union() {
-    // foot
-    linear_extrude(2, true) {
-      difference() {
-        rounded_resized_bottom(resize_base);
-        rounded_resized_bottom(resize_base-(foot_width*2));
-      }
-    }
-
-    // thin rounded feet under the power jack
-    translate([0, -29.5, 0])
-      rounded_rect([11.5+(2*foot_width), 1.5, 2], 0.5);
-
     // curvey profile
-    translate([0, 0, 2])
+    translate([0, 0, 0])
       serial_hull() {
         rounded_cone_ring(resize_base, 0);
-        rounded_cone_ring(resize_base*(8/curve_factor), 4);
-        cone_ring(resize_base*(4/curve_factor), 4*2);
-        cone_ring(resize_base*(2/curve_factor), 4*3);
-        cone_ring(resize_base*(1/curve_factor), 4*4);
-        cone_ring(2, 20);
-        cone_ring(2, 29);
+        rounded_cone_ring(resize_base, 2);
+        rounded_cone_ring(resize_base*(8/curve_factor), 6);
+        cone_ring(resize_base*(4/curve_factor), 4*2+2);
+        cone_ring(resize_base*(2/curve_factor), 4*3+2);
+        cone_ring(resize_base*(1/curve_factor), 4*4+2);
+        cone_ring(2, 22);
+        cone_ring(2, 31);
       }
 
     // power jack
-    translate([0, -22.5, 6])
-      rotate([90, 0, 0])
-        cylinder(h=8, d=12);
+    /*translate([0, -22.5, 6.5])*/
+      /*rotate([90, 0, 0])*/
+        /*cylinder(h=8, d=13);*/
   }
 }
 
@@ -129,34 +103,41 @@ module base() {
   difference() {
     cone(32);
 
+    translate([18, 0, -1])
+      rounded_rect([25, 40, 3], 2);
+    translate([-25, 0, -1])
+      rounded_rect([15, 40, 3], 2);
+    /*translate([0, 22, -1])*/
+      /*rounded_rect([45, 10, 3], 2);*/
+
     // negative space for power jack
-    translate([0, -30.5, 6])
-      rotate([90, 0, 0])
-        cylinder(h=9, d=12);
+    /*translate([0, -30.5, 6.5])*/
+      /*rotate([90, 0, 0])*/
+        /*cylinder(h=9, d=13);*/
 
     // rounded outer edges near the power jack
-    translate([-10, -35.5, -1])
-      difference() {
-        cube([20, 5, 7]);
+    /*translate([-10.5, -35.5, -1])*/
+      /*difference() {*/
+        /*cube([21, 5, 10]);*/
 
-        translate([0, 5, -1])
-          cylinder(r=4, h=9, $fn=32);
+        /*translate([0, 5, -1])*/
+          /*cylinder(r=4, h=12, $fn=32);*/
 
-        translate([20, 5, -1])
-          cylinder(r=4, h=9, $fn=32);
-      }
+        /*translate([21, 5, -1])*/
+          /*cylinder(r=4, h=12, $fn=32);*/
+      /*}*/
 
     // rounded feet/hex nut edges
-    translate([-3.5, -31.5, -1])
-      difference() {
-        cube([7, 4, 6]);
+    /*translate([-3, -31.5, -1])*/
+      /*difference() {*/
+        /*cube([6, 2.25, 6]);*/
 
-        translate([0, 2, -1])
-          rounded_rect([3, 1, 8], 1);
+        /*translate([0, 1.6, -1])*/
+          /*rounded_rect([3, 0.75, 8], 0.5);*/
 
-        translate([7, 2, -1])
-          rounded_rect([3, 1, 8], 1);
-      }
+        /*translate([6, 1.6, -1])*/
+          /*rounded_rect([3, 0.75, 8], 0.5);*/
+      /*}*/
 
     // negative space for solo
     translate([0, 0, 16])

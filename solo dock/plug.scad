@@ -106,63 +106,12 @@ module negative_jack_mount() {
   }
 }
 
-module negative_power_inside_round_corner(height) {
+module inside_rounded_corner(height) {
   difference() {
-    cube([3, 3, height], true);
+    cube([1, 1, height+1]);
 
-    cylinder(h=height+2, d=3, center=true, $fn=32);
-
-    translate([0, 1.5, 0])
-     cube([5, 3, height+2], true);
-
-    translate([1.5, -1, 0])
-      cube([3, 3, height+2], true);
-  }
-}
-
-module negative_power_outside_round_corner(height) {
-  cylinder(h=height, d=3, center=true, $fn=32);
-}
-
-module negative_power_cable() {
-  height = 9;
-
-  union() {
-    translate([0, 1, 0])
-      cube([11.5, 4, height]);
-
-    translate([9.1, -0.4, 4.5])
-      rotate([0, 0, 180])
-        negative_power_inside_round_corner(height);
-
-    translate([10.5, -8.5, 0])
-      cube([2.5, 12, height]);
-
-    translate([11.5, 3.5, 4.5])
-      rotate([0, 0, 180])
-        negative_power_outside_round_corner(height);
-
-    translate([9.1, -6.1, 4.5])
-      rotate([0, 0, 90])
-        negative_power_inside_round_corner(height);
-
-    translate([-14.5, -10, 0])
-      cube([26, 2.5, height]);
-
-    translate([11.5, -8.5, 4.5])
-      rotate([0, 0, 180])
-        negative_power_outside_round_corner(height);
-
-    translate([-16, -14, 0])
-      cube([2.5, 5, height]);
-
-    translate([-14.5, -9, 4.5])
-      rotate([0, 0, 180])
-        negative_power_outside_round_corner(height);
-
-    translate([-12.1, -11.4, 4.5])
-      rotate([0, 0, -90])
-        negative_power_inside_round_corner(height);
+    translate([1, 1, -1])
+      cylinder(r=1, h=height+3, $fn=32);
   }
 }
 
@@ -174,30 +123,42 @@ module negative_power_plug() {
 module negative_power_assembly() {
   union() {
     translate([-6.75, 8, -4])
-      rotate([0, 0, -60])
+      rotate([0, 0, -90])
         negative_power_plug();
 
-    translate([2.1, -11.3, 0])
-      rotate([0, 0, -30])
-        cube([4, 4, 10]);
+    translate([0, -29, -1])
+      rounded_rect([4, 18, 3], 1);
+
+    translate([-6.75, -19, -1])
+      rounded_rect([4, 10, 5], 1);
+
+    translate([-3.25, -22, -1])
+      rounded_rect([10.5, 4, 5], 1);
+
+    translate([-4.25, -19.5, -1])
+      inside_rounded_corner(4);
+
+    rotate([0, 0, 180])
+      translate([2.5, 24.5, -1])
+        inside_rounded_corner(4);
+
+    translate([-2.5, -25.5, 2])
+      cube([5, 2, 2]);
+
+    translate([-9.25, -17, 1])
+      rotate([35, 0, 0])
+        cube([5, 6, 3]);
 
     difference() {
-      translate([-3, -11, 0])
-        cube([3, 3, 10]);
+      translate([-2.5, -29.75, -0.75])
+        rotate([25, 0, 0])
+          cube([5, 6, 2.5]);
 
-      translate([-2.75, -8.5, 0])
-        cylinder(r=1.1, h=10, $fn=32);
+      translate([-3.25, -26, 4])
+        cube([10.5, 5, 5]);
     }
 
-    /*difference() {*/
-      /*translate([4.4, -12, 0])*/
-        /*cube([3, 2.5, 10]);*/
-
-      /*translate([8.6, -12.65, 0])*/
-        /*cylinder(r=3, h=10, $fn=32);*/
-    /*}*/
-
-    translate([-6, -34.5, 0])
-      negative_jack_mount();
+    /*translate([-6, -34.5, 0])*/
+      /*negative_jack_mount();*/
   }
 }
