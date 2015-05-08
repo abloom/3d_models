@@ -25,31 +25,31 @@ module solo_bottom() {
   }
 }
 
-module rounded_solo_bottom() {
-  difference() {
-    solo_bottom();
+/*module rounded_solo_bottom() {*/
+  /*difference() {*/
+    /*solo_bottom();*/
 
-    wide_rounded_solo_bottom_corner();
-    rotate([0, 0, 180])
-      wide_rounded_solo_bottom_corner();
-    mirror([1, 0, 0])
-      wide_rounded_solo_bottom_corner();
-    mirror([0, 1, 0])
-      wide_rounded_solo_bottom_corner();
-  }
-}
+    /*wide_rounded_solo_bottom_corner();*/
+    /*rotate([0, 0, 180])*/
+      /*wide_rounded_solo_bottom_corner();*/
+    /*mirror([1, 0, 0])*/
+      /*wide_rounded_solo_bottom_corner();*/
+    /*mirror([0, 1, 0])*/
+      /*wide_rounded_solo_bottom_corner();*/
+  /*}*/
+/*}*/
 
-module wide_rounded_solo_bottom_corner() {
-  difference() {
-    circle(r=24, $fn=128);
+/*module wide_rounded_solo_bottom_corner() {*/
+  /*difference() {*/
+    /*circle(r=24, $fn=128);*/
 
-    translate([5, 5, 0])
-      circle(r=24, $fn=128);
+    /*translate([5, 5, 0])*/
+      /*circle(r=24, $fn=128);*/
 
-    translate([-27, -30, 0])
-      square([30, 60]);
-  }
-}
+    /*translate([-27, -30, 0])*/
+      /*square([30, 60]);*/
+  /*}*/
+/*}*/
 
 module resized_bottom(extra) {
   resize([extra+solo_width, extra+solo_depth, 0])
@@ -57,10 +57,10 @@ module resized_bottom(extra) {
 }
 
 
-module rounded_resized_bottom(extra) {
-  resize([extra+solo_width, extra+solo_depth, 0])
-    rounded_solo_bottom();
-}
+/*module rounded_resized_bottom(extra) {*/
+  /*resize([extra+solo_width, extra+solo_depth, 0])*/
+    /*rounded_solo_bottom();*/
+/*}*/
 
 module cone_ring(resize_base, height) {
   translate([0, 0, height])
@@ -68,11 +68,11 @@ module cone_ring(resize_base, height) {
       resized_bottom(resize_base);
 }
 
-module rounded_cone_ring(resize_base, height) {
-  translate([0, 0, height])
-    linear_extrude(0.1, true)
-      rounded_resized_bottom(resize_base);
-}
+/*module rounded_cone_ring(resize_base, height) {*/
+  /*translate([0, 0, height])*/
+    /*linear_extrude(0.1, true)*/
+      /*rounded_resized_bottom(resize_base);*/
+/*}*/
 
 module cone(resize_base) {
   curve_factor = 10;
@@ -82,9 +82,12 @@ module cone(resize_base) {
     // curvey profile
     translate([0, 0, 0])
       serial_hull() {
-        rounded_cone_ring(resize_base, 0);
-        rounded_cone_ring(resize_base, 2);
-        rounded_cone_ring(resize_base*(8/curve_factor), 6);
+        /*rounded_cone_ring(resize_base, 0);*/
+        /*rounded_cone_ring(resize_base, 2);*/
+        /*rounded_cone_ring(resize_base*(8/curve_factor), 6);*/
+        cone_ring(resize_base, 0);
+        cone_ring(resize_base, 2);
+        cone_ring(resize_base*(8/curve_factor), 6);
         cone_ring(resize_base*(4/curve_factor), 4*2+2);
         cone_ring(resize_base*(2/curve_factor), 4*3+2);
         cone_ring(resize_base*(1/curve_factor), 4*4+2);
@@ -93,9 +96,9 @@ module cone(resize_base) {
       }
 
     // power jack
-    /*translate([0, -22.5, 6.5])*/
-      /*rotate([90, 0, 0])*/
-        /*cylinder(h=8, d=13);*/
+    translate([0, -22.5, 6.5])
+      rotate([90, 0, 0])
+        cylinder(h=8, d=10.5, $fn=32);
   }
 }
 
@@ -103,41 +106,17 @@ module base() {
   difference() {
     cone(32);
 
-    translate([18, 0, -1])
-      rounded_rect([25, 40, 3], 2);
-    translate([-25, 0, -1])
-      rounded_rect([15, 40, 3], 2);
-    /*translate([0, 22, -1])*/
-      /*rounded_rect([45, 10, 3], 2);*/
-
-    // negative space for power jack
-    /*translate([0, -30.5, 6.5])*/
-      /*rotate([90, 0, 0])*/
-        /*cylinder(h=9, d=13);*/
-
     // rounded outer edges near the power jack
-    /*translate([-10.5, -35.5, -1])*/
-      /*difference() {*/
-        /*cube([21, 5, 10]);*/
+    translate([-9.25, -35.5, -1])
+      difference() {
+        cube([18.5, 5, 10]);
 
-        /*translate([0, 5, -1])*/
-          /*cylinder(r=4, h=12, $fn=32);*/
+        translate([0, 5, -1])
+          cylinder(r=4, h=12, $fn=32);
 
-        /*translate([21, 5, -1])*/
-          /*cylinder(r=4, h=12, $fn=32);*/
-      /*}*/
-
-    // rounded feet/hex nut edges
-    /*translate([-3, -31.5, -1])*/
-      /*difference() {*/
-        /*cube([6, 2.25, 6]);*/
-
-        /*translate([0, 1.6, -1])*/
-          /*rounded_rect([3, 0.75, 8], 0.5);*/
-
-        /*translate([6, 1.6, -1])*/
-          /*rounded_rect([3, 0.75, 8], 0.5);*/
-      /*}*/
+        translate([18.5, 5, -1])
+          cylinder(r=4, h=12, $fn=32);
+      }
 
     // negative space for solo
     translate([0, 0, 16])
@@ -148,3 +127,4 @@ module base() {
   }
 }
 
+base();
