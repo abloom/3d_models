@@ -3,13 +3,16 @@ use <shared.scad>;
 module negative_jack_mount() {
   translate([6, 12.5, 6.5])
     rotate([90, 0, 0])
-      cylinder(h=9, d=7.8, $fn=32);
+      cylinder(h=9, d=7.7, $fn=32);
 }
 
 module negative_power_plug() {
   translate([0, 0, -2])
     union() {
-      cylinder(d=7.5, h=24, $fn=32);
+      cylinder(d=7.65, h=24, $fn=32);
+
+      translate([0, 0, 15])
+        cylinder(d=8, h=4, $fn=32);
     }
 }
 

@@ -43,7 +43,6 @@ module cone(resize_base) {
   union() {
     // curvey profile
     serial_hull() {
-      /*cone_ring(resize_base, 0);*/
       cone_ring(resize_base, 0);
       cone_ring(resize_base*(8/curve_factor), 4);
       cone_ring(resize_base*(4/curve_factor), 4*2);
@@ -66,7 +65,7 @@ module cone(resize_base) {
 
 module power_jack_cutaway(extra_width=0) {
   radius = 4;
-  width = 10.5 + extra_width;
+  widta = 10.5 + extra_width;
   total_width = width + (radius * 2);
   offset = (width-10.5) / 2;
 
@@ -86,10 +85,9 @@ module base() {
   difference() {
     cone();
 
-    // rounded outer edges near the power jack
     power_jack_cutaway();
 
-    // slot to attach foot ring
+    // slots to position foot ring
     translate([0, 0, -2])
       foot_ring();
 
@@ -135,7 +133,7 @@ module foot_ring() {
     // tabs to line up with base
     translate([0, 0, 2])
       difference() {
-        cone_ring_with_cutaway(28.5, 28, 1);
+        cone_ring_with_cutaway(29, 28, 1);
 
         // remove the outer rounded corners
         translate([35, 25, 0])
@@ -154,8 +152,7 @@ module foot_ring() {
   }
 }
 
-/*translate([0, -40, 0])*/
+translate([0, 0, 2])
   base();
 
-/*translate([0, 40, 0])*/
-  /*foot_ring();*/
+foot_ring();
