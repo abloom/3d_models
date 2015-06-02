@@ -5,6 +5,7 @@ module top(base) {
   difference() {
     serial_hull() {
       cone_ring(base, 0);
+      cone_ring(base-2, 1);
       cone_ring(3, 13);
     }
 
