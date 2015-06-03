@@ -28,12 +28,12 @@ module middle(base) {
 module negative_jack_mount() {
   union() {
     // jack recess
-    translate([0, -8, 0])
+    translate([0, -7, 0])
       rotate([90, 0, 0])
         cylinder(h=8, d=10.5, $fn=32);
 
     // small hole through the body
-    translate([0, -5, 0])
+    translate([0, -4, 0])
       rotate([90, 0, 0])
         cylinder(h=4, d=7.7, $fn=32);
   }
@@ -72,8 +72,8 @@ module negative_wire_run(height) {
   // open space
   translate([7, 3, 0])
     rounded_rect([9, 17, height], 1);
-  translate([0, -10.5, 0])
-    rounded_rect([22, 15, height], 2);
+  translate([0, -10, 0])
+    rounded_rect([22, 14, height], 2);
   translate([2.5, -2.5, 0])
     rotate([0, 0, 90])
       inside_rounded_corner(height);
