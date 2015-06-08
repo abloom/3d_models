@@ -28,3 +28,14 @@ module rounded_rect(size, radius) {
     circle(r=radius, $fn=32);
   }
 }
+
+module inside_rounded_corner(height, radius=1) {
+  padded = radius + 0.5;
+
+  difference() {
+    cube([padded, padded, height]);
+
+    translate([padded, padded, -1])
+      cylinder(r=radius, h=height+2, $fn=32);
+  }
+}

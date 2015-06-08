@@ -1,31 +1,38 @@
-use <shared.scad>;
+include <defaults.scad>;
+use <shapes.scad>;
+use <screws.scad>;
+use <corner_pads.scad>;
 use <solo.scad>;
 
-module middle(base) {
-  extra = base - 3;
-  middle_height = 13;
-  bumper_height = middle_height + 2;
+module middle(pads, top_screws = true) {
+  rotate([0, 0, 90])
+    difference() {
+      serial_hull() {
+        cone_ring(bottom_width, 0);
+        cone_ring(middle_width, middle_height);
+      }
 
-  difference() {
-    serial_hull() {
-      cone_ring(base + extra, 0);
-      cone_ring(base, middle_height);
-    }
-
-    union() {
       translate([-6.75, 8, -1])
-        negative_power_plug(bumper_height);
+        power_plug(middle_height + 2);
 
       translate([0, 0, -1])
-        negative_wire_run(bumper_height);
+        wire_run(middle_height + 2);
 
       translate([0, -13, middle_height/2])
-        negative_jack_mount();
+        jack_mount();
+
+      if (top_screws) {
+        rotate([180, 0, 0])
+          narrow_screws(-middle_height - 2);
+      }
+
+      wide_screws(-2);
     }
-  }
+
+  if (pads) large_corner_pads();
 }
 
-module negative_jack_mount() {
+module jack_mount() {
   union() {
     // jack recess
     translate([0, -7, 0])
@@ -35,32 +42,25 @@ module negative_jack_mount() {
     // small hole through the body
     translate([0, -4, 0])
       rotate([90, 0, 0])
-        cylinder(h=4, d=7.7, $fn=32);
+        cylinder(h=4, d=7.8, $fn=32);
   }
 }
 
-module negative_power_plug(height) {
-  // nut cutout
-  translate([0, 0, height-7])
+module power_plug(height) {
+  union() {
+    // threaded section
     rotate([0, 0, -90])
-      cylinder(d=15.5, h=7.5, $fn=6);
+      cylinder(d=7.15, h=height, $fn=32);
 
-  // round cutout below
-  rotate([0, 0, -90])
-    cylinder(d=8, h=height, $fn=32);
-}
-
-module inside_rounded_corner(height) {
-  difference() {
-    cube([1.5, 1.5, height]);
-
-    translate([1.5, 1.5, -1])
-      cylinder(r=1, h=height+2, $fn=32);
+    // wider opening for the ring on the plug
+    translate([0, 0, height-2])
+      rotate([0, 0, -90])
+        cylinder(d=8, h=2, $fn=32);
   }
 }
 
-module negative_wire_run(height) {
-  covered_height = height - 9;
+module wire_run(height) {
+  covered_height = height - 7;
 
   // covered space
   translate([-6.75, 4, 0])
@@ -70,13 +70,13 @@ module negative_wire_run(height) {
       inside_rounded_corner(covered_height);
 
   // open space
-  translate([7, 3, 0])
-    rounded_rect([9, 17, height], 1);
-  translate([0, -10, 0])
-    rounded_rect([22, 14, height], 2);
+  translate([6.5, 3, 0])
+    rounded_rect([8, 17, height], 1);
+  translate([-0.5, -10, 0])
+    rounded_rect([21, 14, height], 2);
   translate([2.5, -2.5, 0])
     rotate([0, 0, 90])
       inside_rounded_corner(height);
 }
 
-middle(10);
+middle(true);

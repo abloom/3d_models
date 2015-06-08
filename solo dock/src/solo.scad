@@ -1,5 +1,4 @@
-solo_width = 44.5;
-solo_depth = 37;
+include <defaults.scad>;
 
 module solo_bottom() {
   half_width = solo_width/2;
@@ -27,7 +26,7 @@ module resized_bottom(extra) {
     solo_bottom();
 }
 
-module cone_ring(resize_base, z, height=0.1) {
+module cone_ring(resize_base, z, height=0.01) {
   translate([0, 0, z])
     linear_extrude(height, true)
       resized_bottom(resize_base);

@@ -1,39 +1,37 @@
+include <src/defaults.scad>;
 use <src/top.scad>;
 use <src/middle.scad>;
 use <src/bottom.scad>;
+use <src/other_top.scad>;
 
 module offset() {
-  translate([35, 30, 0])
-    top(10);
+  translate([0, 70, 0])
+    top(true);
 
-  translate([35, -30, 0])
-    middle(10);
+  translate([0, 0, 0])
+    middle(true);
 
-  translate([-35, 0, 3])
-    rotate([180, 0, 0])
-      bottom(10);
-}
-
-module stacked() {
-  translate([0, 0, 36])
-    top(10);
-
-  translate([0, 0, 13])
-    middle(10);
-
-  bottom(10);
+  translate([0, -70, 0])
+    bottom(true);
 }
 
 module assembled() {
-  translate([0, 0, 16])
-    top(10);
+  translate([0, 0, bottom_height + middle_height])
+    top();
 
-  translate([0, 0, 3])
-    middle(10);
+  translate([0, 0, bottom_height])
+    middle();
 
-  bottom(10);
+  translate([0, 0, bottom_height])
+    rotate([180, 0, 0])
+      bottom();
 }
 
-offset();
-/*stacked();*/
-/*assembled();*/
+translate([50, 0, 0])
+  offset();
+
+translate([-50, 0, 0])
+  assembled();
+
+translate([150, 0, 0])
+  other_top(true);

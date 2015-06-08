@@ -9,7 +9,7 @@ clean:
 	rm -rf dist
 	mkdir dist
 
-build: dist/top.stl dist/middle.stl dist/bottom.stl
+build: dist/top.stl dist/middle.stl dist/bottom.stl dist/other_top.stl
 
 dist/%.stl: src/%.scad
 	$(OPEN_SCAD_PATH) -m make -o $@ -d $@.deps $<
