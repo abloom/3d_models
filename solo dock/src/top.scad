@@ -1,8 +1,8 @@
-include <defaults.scad>;
-use <shapes.scad>;
-use <screws.scad>;
-use <corner_pads.scad>;
-use <solo.scad>;
+include <../lib/defaults.scad>;
+use <../lib/shapes.scad>;
+use <../lib/screws.scad>;
+use <../lib/corner_pads.scad>;
+use <../lib/solo.scad>;
 
 module top(pads, screws = true) {
   rotate([0, 0, 90])
@@ -26,10 +26,10 @@ module top(pads, screws = true) {
       translate([-4, 15, 8])
         cube([8, 8, top_height]);
 
-      if (screws) {
-        rotate([180, 0, 0])
-          narrow_screws(-2.1);
-      }
+      /*if (screws) {*/
+        /*rotate([180, 0, 0])*/
+          /*narrow_screws(-2.1);*/
+      /*}*/
     }
 
   if (pads) small_corner_pads();

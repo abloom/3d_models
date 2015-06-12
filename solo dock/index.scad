@@ -1,8 +1,8 @@
-include <src/defaults.scad>;
+include <lib/defaults.scad>;
 use <src/top.scad>;
 use <src/middle.scad>;
 use <src/bottom.scad>;
-use <src/other_top.scad>;
+use <src/combined_top.scad>;
 
 module offset() {
   translate([0, 70, 0])
@@ -34,4 +34,4 @@ translate([-50, 0, 0])
   assembled();
 
 translate([150, 0, 0])
-  other_top(true);
+  combined_top(true);

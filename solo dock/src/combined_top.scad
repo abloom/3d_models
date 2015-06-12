@@ -1,8 +1,8 @@
-include <defaults.scad>;
+include <../lib/defaults.scad>;
 use <top.scad>;
 use <middle.scad>;
 
-module other_top(pads) {
+module combined_top(pads) {
   union() {
     middle(pads, false);
 
@@ -11,4 +11,4 @@ module other_top(pads) {
   }
 }
 
-other_top(true);
+combined_top(true);

@@ -1,8 +1,8 @@
-include <defaults.scad>;
-use <shapes.scad>;
-use <screws.scad>;
-use <corner_pads.scad>;
-use <solo.scad>;
+include <../lib/defaults.scad>;
+use <../lib/shapes.scad>;
+use <../lib/screws.scad>;
+use <../lib/corner_pads.scad>;
+use <../lib/solo.scad>;
 
 module bottom(pads) {
   translate([0, 0, 3.5])

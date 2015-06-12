@@ -2,7 +2,7 @@ module corner_pads(base_x, base_y) {
   for(x = [-base_x, base_x]) {
     for(y = [-base_y, base_y]) {
       translate([x, y, 0])
-        cylinder(d=15, h=0.2);
+        cylinder(d=15, h=0.3);
     }
   }
 }
