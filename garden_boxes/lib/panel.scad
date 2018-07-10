@@ -5,7 +5,6 @@ module panel(four_by_count, width, foot_depth=0, cover=false, edge_offset=0, ver
   height = four_by_count * four_by_height;
   final_width=width - (edge_offset*2);
 
-  color("red")
   translate([0, edge_offset, 0])
     frame(height, final_width, foot_depth, verticals, horizontals);
 
