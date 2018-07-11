@@ -16,9 +16,9 @@ module panel(four_by_count, width, foot_depth=0, cover=false, edge_offset=0, ver
 
 module cover(four_by_count, width) {
   for(count = [1 : four_by_count])
-    translate([0, 0, four_by_height * count])
+    translate([0, 0.125, four_by_height * count])
       rotate([0, 90, 0])
-        one_by_four(width);
+        one_by_four(width - 0.25);
 }
 
 module frame(height, width, foot_depth, verticals=true, horizontals=true) {
