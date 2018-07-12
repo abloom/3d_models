@@ -5,8 +5,8 @@ use <../lib/earthbox.scad>;
 use <../lib/fence_post.scad>;
 
 module box(length, width, four_by_count, fence_height, earthbox=false, exploded=false) {
-  translate([length, 0, 0]) {
-    rotate([0, 0, 90]) {
+  translate([-width, length, 0]) {
+    rotate([0, 0, 180]) {
       //////
       // wood frame
       //////
@@ -36,25 +36,26 @@ module box(length, width, four_by_count, fence_height, earthbox=false, exploded=
         //////
 
         // front left
-        translate([-two_by_height-1, edge_offset, 0])
+        translate([-two_by_height, edge_offset, 0])
           fence_post(fence_height, foot_depth);
 
         // back left
-        translate([-width+two_by_height+2.5, edge_offset, 0])
+        translate([-width+(two_by_height*2), edge_offset, 0])
           fence_post(fence_height, foot_depth);
 
         // front right
-        translate([-two_by_height-1, length-edge_offset-0.25, 0])
+        translate([-two_by_height, length-edge_offset-0.25, 0])
           fence_post(fence_height, foot_depth);
 
         // back right
-        translate([-width+two_by_height+2.5, length-edge_offset-0.25, 0])
+        translate([-width+(two_by_height*2), length-edge_offset-0.25, 0])
           fence_post(fence_height, foot_depth);
       }
 
       if (earthbox) {
-        earthbox_x_offset = exploded ? -(exploded_offset/2) : 0;
-        translate([-15 + earthbox_x_offset, 9.5, 0])
+        earthbox_x_offset = exploded ? (exploded_offset/2) : 0;
+        earthbox_y = (length - 29) / 2;
+        translate([-15-earthbox_x_offset, earthbox_y, 0])
           earthbox();
       }
     }
@@ -63,8 +64,8 @@ module box(length, width, four_by_count, fence_height, earthbox=false, exploded=
 
 box(panel_length, frame_depth, frame_height, fence_height, earthbox=true);
 
-translate([panel_length * 1.5, 0, 0])
+translate([0, panel_length * 1.5, 0])
   box(panel_length, frame_depth, frame_height, 0, earthbox=true, exploded=true);
 
-translate([panel_length * 3, 0, 0])
+translate([0, panel_length * 3, 0])
   box(panel_length, frame_depth, frame_height, 0, exploded=true);

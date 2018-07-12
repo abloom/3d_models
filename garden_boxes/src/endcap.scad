@@ -3,7 +3,7 @@ use <../lib/panel.scad>;
 
 module right_endcap(width, four_by_count) {
   translate([two_by_height, two_by_height, 0]) {
-    rotate([0, 0, 180]) {
+    rotate([0, 0, 270]) {
       panel(four_by_count, width, cover=true, horizontals=false);
 
       translate([two_by_height, width-two_by_height, 0])
@@ -19,7 +19,7 @@ module right_endcap(width, four_by_count) {
 
 module left_endcap(width, four_by_count) {
   translate([0, 0, four_by_count * four_by_height])
-  rotate([0, 180, 0])
+  rotate([180, 0, 0])
     right_endcap(width, four_by_count);
 }
 
