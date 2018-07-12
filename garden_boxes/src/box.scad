@@ -4,7 +4,7 @@ use <../lib/panel.scad>;
 use <../lib/earthbox.scad>;
 use <../lib/fence_post.scad>;
 
-module box(length, width, four_by_count, fence_height, earthbox=false, exploded=false) {
+module box(length, width, four_by_count, fence_height, edge_offset, earthbox=false, exploded=false) {
   translate([-width, length, 0]) {
     rotate([0, 0, 180]) {
       //////
@@ -12,7 +12,11 @@ module box(length, width, four_by_count, fence_height, earthbox=false, exploded=
       //////
 
       // front
-      panel(four_by_count, length, cover=true, edge_offset=edge_offset, horizontals=false);
+      difference() {
+        panel(four_by_count, length, cover=true, edge_offset=edge_offset, horizontals=false);
+        translate([two_by_height-2, 0, -1])
+          cube([2, length, two_by_height+1]);
+      }
 
       translate([exploded ? -exploded_offset : 0, 0, 0]) {
         color("purple") {
@@ -29,6 +33,10 @@ module box(length, width, four_by_count, fence_height, earthbox=false, exploded=
           // back
           translate([-width + two_by_height, 0, 0])
             panel(four_by_count, length, edge_offset=edge_offset, verticals=false);
+
+          // front
+          translate([0, edge_offset, 0])
+            two_by_two(length-(2*edge_offset));
         }
 
         //////
@@ -62,10 +70,10 @@ module box(length, width, four_by_count, fence_height, earthbox=false, exploded=
   }
 }
 
-box(panel_length, frame_depth, frame_height, fence_height, earthbox=true);
+box(panel_length, frame_depth, frame_height, fence_height, earthbox=true, edge_offset=6);
 
 translate([0, panel_length * 1.5, 0])
-  box(panel_length, frame_depth, frame_height, 0, earthbox=true, exploded=true);
+  box(panel_length, frame_depth, frame_height, 0, earthbox=true, exploded=true, edge_offset=6);
 
 translate([0, panel_length * 3, 0])
-  box(panel_length, frame_depth, frame_height, 0, exploded=true);
+  box(panel_length, frame_depth, frame_height, 0, exploded=true, edge_offset=6);
