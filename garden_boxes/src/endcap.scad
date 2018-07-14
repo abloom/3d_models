@@ -4,7 +4,7 @@ use <../lib/panel.scad>;
 module right_endcap(width, four_by_count, edge_offset) {
   translate([two_by_height, two_by_height, 0]) {
     rotate([0, 0, 270]) {
-      panel(four_by_count, width, cover=true, horizontals=false);
+      panel(four_by_count, width, cover=true, horizontals=false, inside_edge=false);
 
       if (edge_offset/2 > two_by_height) {
         translate([two_by_height, width-two_by_height, 0])
