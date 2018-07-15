@@ -1,4 +1,4 @@
-include <defaults.scad>;
+include <../defaults.scad>;
 
 module two_by_two(length) {
   lumber(two_by_height, two_by_height, length);

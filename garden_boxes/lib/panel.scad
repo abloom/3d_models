@@ -1,29 +1,20 @@
 include <defaults.scad>;
-use <../lib/lumber.scad>;
+use <premade/lumber.scad>;
 
-module panel(four_by_count, width, foot_depth=0, cover=false, edge_offset=0, verticals=true, horizontals=true, inside_edge=true) {
+module panel(four_by_count, width, foot_depth=0, cover=false, edge_offset=0, verticals=true, horizontals=true) {
   height = four_by_count * four_by_height;
-  edge_addition = inside_edge ? 0 : 2 * two_by_height;
-  final_width=width - (edge_offset*2) + edge_addition;
+  final_width=width - (edge_offset*2);
 
-  translate([0, edge_offset - (edge_addition / 2), 0])
-    if (cover && inside_edge) {
-      difference() {
-        frame(height, final_width, foot_depth, verticals, horizontals);
-          translate([two_by_height-2, 0, -1])
-            cube([2, width, two_by_height+1]);
-      }
-    } else {
-      frame(height, final_width, foot_depth, verticals, horizontals);
-    }
+  translate([0, edge_offset, 0])
+    frame(height, final_width, foot_depth, verticals, horizontals);
 
   if (cover) {
     translate([two_by_height, 0, 0])
-      cover(four_by_count, width, inside_edge);
+      cover(four_by_count, width);
   }
 }
 
-module cover(four_by_count, width, inside_edge=true) {
+module cover(four_by_count, width) {
   for(count = [1 : four_by_count])
     translate([0, 0.125, four_by_height * count])
       rotate([0, 90, 0])
