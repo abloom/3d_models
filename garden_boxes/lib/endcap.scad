@@ -6,13 +6,15 @@ module right_endcap(width, four_by_count, edge_offset) {
     rotate([0, 0, 270]) {
       panel(four_by_count, width, cover=true, horizontals=false);
 
-      translate([edge_offset, width-two_by_height, 0])
-        rotate([0, 0, 90])
-          panel(four_by_count, edge_offset);
+      if (edge_offset > 2 * two_by_height) {
+        translate([edge_offset, width-two_by_height, 0])
+          rotate([0, 0, 90])
+            panel(four_by_count, edge_offset);
 
-      translate([edge_offset, 0, 0])
-        rotate([0, 0, 90])
-          panel(four_by_count, edge_offset);
+        translate([edge_offset, 0, 0])
+          rotate([0, 0, 90])
+            panel(four_by_count, edge_offset);
+      }
     }
   }
 }
