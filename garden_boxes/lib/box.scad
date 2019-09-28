@@ -28,43 +28,44 @@ module box(panel_length, four_by_count, fence_height, frame_inside_length,
       translate([frame_offset, 0, 0]) {
         // wood frame
         color("purple") {
-          // left side
-          translate([two_by_height+side_depth_addition, 2*two_by_height, 0])
-            rotate([0, 0, 90])
-              panel(four_by_count, frame_inside_depth+side_depth_addition + (2*two_by_height));
+          // left front
+          translate([0, 0, -12])
+            rotate([90, 0, 0])
+              two_by_two(8*12);
 
-          // right side
-          translate([two_by_height+side_depth_addition, frame_inside_length+(2*frame_edge_addition)+two_by_height, 0])
-            rotate([0, 0, 90])
-              panel(four_by_count, frame_inside_depth+side_depth_addition + (2*two_by_height));
+          // left back
+          translate([-frame_inside_depth-two_by_height, 0, -12])
+            rotate([90, 0, 0])
+              two_by_two(8*12);
 
-          // back
-          translate([-width + (2.5 * two_by_height), 3*two_by_height, 0])
-            panel(four_by_count, frame_inside_length, verticals=false);
+          // righr front
+          translate([0, frame_inside_length+two_by_height, -12])
+            rotate([90, 0, 0])
+              two_by_two(8*12);
 
-          // front
-          translate([bottom_depth_addition, 3*frame_edge_addition, 0])
-            two_by_two(frame_inside_length);
+          // right back
+          translate([-frame_inside_depth-two_by_height, frame_inside_length+two_by_height, -12])
+            rotate([90, 0, 0])
+              two_by_two(8*12);
+
+          /*// left side*/
+          /*translate([two_by_height+side_depth_addition, 2*two_by_height, 0])*/
+            /*rotate([0, 0, 90])*/
+              /*panel(four_by_count, frame_inside_depth+side_depth_addition + (2*two_by_height));*/
+
+          /*// right side*/
+          /*translate([two_by_height+side_depth_addition, frame_inside_length+(2*frame_edge_addition)+two_by_height, 0])*/
+            /*rotate([0, 0, 90])*/
+              /*panel(four_by_count, frame_inside_depth+side_depth_addition + (2*two_by_height));*/
+
+          /*// back*/
+          /*translate([-width + (2.5 * two_by_height), 3*two_by_height, 0])*/
+            /*panel(four_by_count, frame_inside_length, verticals=false);*/
+
+          /*// front*/
+          /*translate([bottom_depth_addition, 3*frame_edge_addition, 0])*/
+            /*two_by_two(frame_inside_length);*/
         }
-
-        // fence posts
-        rear_x=-width + (two_by_height*2) + 2.25;
-
-        // front left
-        translate([-two_by_height, edge_offset+frame_edge_addition, 0])
-          fence_post(fence_height, foot_depth);
-
-        // back left
-        translate([rear_x, edge_offset+frame_edge_addition, 0])
-          fence_post(fence_height, foot_depth);
-
-        // front right
-        translate([-two_by_height, panel_length-edge_offset-0.25-frame_edge_addition, 0])
-          fence_post(fence_height, foot_depth);
-
-        // back right
-        translate([rear_x, panel_length-edge_offset-0.25-frame_edge_addition, 0])
-          fence_post(fence_height, foot_depth);
       }
 
       if (earthbox) {

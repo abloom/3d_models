@@ -24,7 +24,7 @@ module layout_row(box_count, fenced=true, exploded=false, earthbox=true, panel_l
 
 translate([0, exploded_offset, 0])
   layout_row(
-    box_count=3,
+    box_count=1,
     panel_length=panel_length,
     frame_inside_length=frame_inside_length,
     foot_depth=foot_depth,
@@ -36,7 +36,7 @@ translate([0, exploded_offset, 0])
 
 translate([frame_inside_length * 4, exploded_offset * 2, 0])
   layout_row(
-    box_count=3,
+    box_count=1,
     panel_length=panel_length,
     frame_inside_length=frame_inside_length,
     foot_depth=foot_depth,
