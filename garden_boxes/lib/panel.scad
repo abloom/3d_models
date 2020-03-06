@@ -1,24 +1,25 @@
 include <defaults.scad>;
 use <premade/lumber.scad>;
 
-module panel(four_by_count, width, foot_depth=0, cover=false, edge_offset=0, verticals=true, horizontals=true) {
-  height = four_by_count * four_by_height;
-  final_width=width - (edge_offset*2);
+module panel(six_by_count, width, foot_depth=0, cover=false, edge_offset=0, verticals=true, horizontals=true) {
+  height = six_by_count * six_by_height;
+  frame_width = earthbox_length+2+(2*two_by_height)-(2*edge_offset);
 
   translate([0, edge_offset, 0])
-    frame(height, final_width, foot_depth, verticals, horizontals);
+    frame(height, frame_width, foot_depth, verticals, horizontals);
 
   if (cover) {
-    translate([two_by_height, 0, 0])
-      cover(four_by_count, width);
+    offset = ((width - frame_width) / 2) - edge_offset;
+    translate([two_by_height, -offset, 0])
+      cover(six_by_count, width);
   }
 }
 
-module cover(four_by_count, width) {
-  for(count = [1 : four_by_count])
-    translate([0, 0.125, four_by_height * count])
+module cover(six_by_count, width) {
+  for(count = [1 : six_by_count])
+    translate([0, 0.125, six_by_height * count])
       rotate([0, 90, 0])
-        one_by_four(width - 0.25);
+        one_by_six(width - 0.25);
 }
 
 module frame(height, width, foot_depth, verticals=true, horizontals=true) {
