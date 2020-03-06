@@ -1,0 +1,2 @@
+dist/dice_tower.stl: \
+	dice_tower.scad
