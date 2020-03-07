@@ -12,9 +12,9 @@ module one_by_four(length) {
   lumber(one_by_height, four_by_height, length);
 }
 
-
 lumber_radius=0.125;
 module lumber(height, width, length) {
+  color("BurlyWood")
   hull() {
     // front
     four_half_spheres(height, width);

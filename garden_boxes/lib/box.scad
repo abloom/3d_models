@@ -10,48 +10,55 @@ module box(
   panel_length,
   post_height,
   earthbox=true,
+  front_cover=true,
   left_endcap=false,
   right_endcap=false,
   exploded=false,
 ) {
   frame(post_height);
 
-  panel_offset = exploded ? -16 : 0;
-  translate([0, panel_offset, 0])
-    rotate([0, 0, 270])
-      panel(
-        six_by_count=3,
-        width=panel_length,
-        cover=true,
-        horizontals=false,
-        edge_offset=two_by_height,
-        foot_depth=-two_by_height
-      );
+  if (front_cover) {
+    panel_offset = exploded ? -36*($t/1) : 0;
+    translate([0, panel_offset, 0])
+      rotate([0, 0, 270])
+        panel(
+          six_by_count=3,
+          width=panel_length,
+          frame_width=frame_length,
+          horizontals=false,
+          avoid_left_endcap=left_endcap,
+          avoid_right_endcap=right_endcap,
+          edge_offset=two_by_height,
+          foot_depth=-two_by_height
+        );
+  }
 
+  side_panel_width=frame_width + two_by_height;
   if (left_endcap) {
-    translate([-two_by_height-one_by_height, -(frame_width+two_by_height)/2, 0])
+    translate([-two_by_height-one_by_height, -two_by_height, 0])
       panel(
         six_by_count=3,
-        width=frame_width+two_by_height,
-        cover=true,
+        width=side_panel_width,
+        frame_width=side_panel_width,
         horizontals=false,
         verticals=false
       );
   }
 
   if (right_endcap) {
-    translate([frame_length, -(frame_width+two_by_height)/2, 0])
+    translate([frame_length, -two_by_height, 0])
       panel(
         six_by_count=3,
-        width=frame_width+two_by_height,
-        cover=true,
+        width=side_panel_width,
+        frame_width=side_panel_width,
         horizontals=false,
         verticals=false
       );
   }
 
   if (earthbox) {
-    translate([two_by_height+1, 1, two_by_height])
+    earthbox_y = exploded ? 24*($t/1) + 1: 1;
+    translate([two_by_height+1, -earthbox_y, two_by_height])
       earthbox();
   }
 }
@@ -80,16 +87,22 @@ module frame(post_height) {
   translate([0, 0, 0])
     two_by_two(earthbox_width+2);
   // right
-  translate([earthbox_length+two_by_height+2, 0, 0])
+  translate([frame_length, 0, 0])
     two_by_two(earthbox_width+2);
   //front
   translate([two_by_height, 0, 0])
     rotate([0, 0, -90])
       two_by_two(earthbox_length+2);
   // back
-  translate([two_by_height, earthbox_width+2+two_by_height, 0])
+  translate([two_by_height, frame_width, 0])
     rotate([0, 0, -90])
       two_by_two(earthbox_length+2);
+  // center left
+  translate([frame_length/3, 0, 0])
+    two_by_two(earthbox_width+2);
+  // center right
+  translate([(frame_length/3)*2, 0, 0])
+    two_by_two(earthbox_width+2);
 
   // middle ring
   middle_ring_height=earthbox_height+two_by_height+1;

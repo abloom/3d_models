@@ -1,7 +1,7 @@
 include <../defaults.scad>;
 
 module earthbox() {
-  color("orange")
+  color("chocolate")
   translate([0, 0, -1])
     hull() {
       translate([0, 0, earthbox_height])
